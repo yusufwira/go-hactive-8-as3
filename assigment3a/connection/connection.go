@@ -1,6 +1,7 @@
 package connection
 
 import (
+	"assigment3a/service/module/windwater/entity"
 	"fmt"
 
 	"github.com/rs/zerolog/log"
@@ -25,10 +26,11 @@ func NewConnection() (*GormDB, error) {
 	}
 
 	log.Info().Msg("connected successfully to the database with gorm!")
-
+	db.AutoMigrate(&entity.WindWater{}, &entity.WindWaterLog{})
 	return &GormDB{
 		DB: db,
 	}, nil
+
 }
 
 func (g *GormDB) BeginTransaction() {
